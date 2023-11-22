@@ -1,2 +1,2 @@
-export * from './user.model'
-export * from './user.route'
+export * from './user.model.js'
+export * from './user.route.js'
