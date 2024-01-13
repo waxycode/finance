@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <div>MEU TOPO</div>
-        <div>MENU LATEAL</div>
+        <div>MENU LATERAL</div>
         {children}
       </body>
     </html>
