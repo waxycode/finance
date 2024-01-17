@@ -1,6 +1,6 @@
-import knex from 'knex';
+import knex from "knex";
 
-const knexConfig ={
+const knexConfig = {
   client: "mysql2",
   connection: {
     host: process.env.DB_HOST || "127.0.0.1",

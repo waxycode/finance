@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-export const up = function (knex) {
+export const up = function(knex) {
     return knex.schema.createTable("users", (table) => {
       table.bigIncrements("id");
       table.string("name");

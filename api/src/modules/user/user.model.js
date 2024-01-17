@@ -2,26 +2,32 @@ import knex from "../../services/knex.js";
 
 import bcrypt from "bcrypt";
 
+const TABLE = "users";
+
 export const getAll = () => {
-  return knex("users");
+  return knex(TABLE).select("id", "name", "email", "created_at", "updated_at");
 };
 
 export const get = (id) => {
-  return knex("users").where({ id }).first();
+  return knex(TABLE)
+    .where({ id })
+    .select("id", "name", "email", "created_at", "updated_at")
+    .first();
 };
 
 export const save = (params) => {
   params.password = bcrypt.hashSync(params.password, 10);
-  return knex("users").insert(params);
+  return knex(TABLE).insert(params);
 };
 
 export const remove = (id) => {
-  return knex("users").where({ id }).del();
+  return knex(TABLE).where({ id }).del();
 };
-// export const remove = (id) => {
-//   return knex("users").delete(id);
-// };
 
 export const update = (id, params) => {
-  return knex("users").where({ id }).update(params);
+  return knex(TABLE).where({ id }).update(params);
+};
+
+export const getByEmail = (email) => {
+  return knex(TABLE).where({ email }).first();
 };
