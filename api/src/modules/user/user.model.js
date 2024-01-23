@@ -21,7 +21,7 @@ export const save = (params) => {
 };
 
 export const remove = (id) => {
-  return knex(TABLE).where({ id }).del();
+  return knex(TABLE).where({ id }).del(); //verificar se vai ser preciso colocar o .delete() depois do TABLE
 };
 
 export const update = (id, params) => {
