@@ -29,11 +29,10 @@ export const LoginForm = () => {
       localStorage.setItem("token", response.data.data.token);
       setNotification({
         open: true,
-        message: `Usuario ${ email } autenticado ixtepô`,
+        message: `Usuario ${email} autenticado ixtepô`,
         severity: "success",
       });
     } catch (error) {
-     
       setNotification({
         open: true,
         message: error.response.data.error,
@@ -91,7 +90,6 @@ export const LoginForm = () => {
           {notification.message}
         </S.Alert>
       </S.Snackbar>
-
     </>
   );
 };

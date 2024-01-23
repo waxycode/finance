@@ -2,12 +2,13 @@
 //SE DER ERRO É SÓ TROCAR PARA "NOME" INVES DE "NAME"
 
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import * as S from "./style";
 
-export const CategoriasCreate = () => {
+export const CategoriasUpdate = ({ categoriaId }) => {
   const [name, setName] = useState();
+  const [userId, setUserId] = useState();
 
   const [notification, setNotification] = useState({
     open: false,
@@ -20,14 +21,41 @@ export const CategoriasCreate = () => {
     if (name === "name") setName(value);
   };
 
+  useEffect(() => {
+    const getCategoria = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          `http://localhost:8080/categorias/${categoriaId}`,
+
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setName(response.data.data.name);
+        setUserId(response.data.data.user_id);
+      } catch (error) {
+        setNotification({
+          open: true,
+          message: error.response.data.message,
+          severity: "error",
+        });
+      }
+    };
+    getCategoria();
+  }, [categoriaId]);
+
   const onSumbmit = async (e) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      await axios.post(
-        "http://localhost:8080/categorias",
+      await axios.put(
+        `http://localhost:8080/categorias/${categoriaId}`,
         {
           name,
+          user_id: userId,
         },
         {
           headers: {
@@ -38,7 +66,7 @@ export const CategoriasCreate = () => {
 
       setNotification({
         open: true,
-        message: `Categoria ${name} criada com sucesso!`,
+        message: `Categoria ${name} atualizada com sucesso!`,
         severity: "success",
       });
     } catch (error) {
@@ -65,17 +93,18 @@ export const CategoriasCreate = () => {
   return (
     <>
       <S.Form onSubmit={onSumbmit}>
-        <S.H1>Criar Categoria</S.H1>
+        <S.H1>Atualizar Categoria</S.H1>
 
         <S.TextField
           name="name"
           onChange={onChangeValue}
           label="Nome"
           variant="outlined"
+          value={name}
           fullWidth
         />
         <S.Button variant="contained" color="success" type="submit">
-          Criar!
+          Atualizar
         </S.Button>
       </S.Form>
       <S.Snackbar
@@ -96,4 +125,4 @@ export const CategoriasCreate = () => {
   );
 };
 
-export default CategoriasCreate;
+export default CategoriasUpdate;

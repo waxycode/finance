@@ -1,6 +1,7 @@
 'use client'
 
-import LoginForm from "../../LoginForm";
+
+import LoginForm from "@/components/LoginForm";
 import * as S from "./style";
 
 export const LoginPage = () => {

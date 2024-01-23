@@ -1,7 +1,8 @@
 "use client";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { CategoriasCreate } from "../../../components/Categorias/CategoriasCreate";
+// import { CategoriasCreate } from "../../../components/Categorias/CategoriasCreate";
+import { CategoriasUpdate } from "../../../components/Categorias/CategoriasUpdate";
 export const DashboardPage = () => {
   const [user, setUser] = useState({
     id: null,
@@ -15,17 +16,19 @@ export const DashboardPage = () => {
       .get("http://localhost:8080/users/me", {
         headers: {
           Authorization: `Bearer ${token}`,
-        }
-      }).then(response => {
-        setUser(response.data.data);
-      }).catch(_ => {
-        window.location.href = "/login";
+        },
       })
+      .then((response) => {
+        setUser(response.data.data);
+      })
+      .catch((_) => {
+        window.location.href = "/login";
+      });
   }, []);
   return (
     <div className="dashboard-page">
       <h1>Dashboard</h1>
-      <CategoriasCreate />
+      <CategoriasUpdate categoriaId={1} />
     </div>
   );
 };
